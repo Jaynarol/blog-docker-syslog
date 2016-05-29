@@ -12,20 +12,6 @@ services:
         - nginx2
 
 
-    nginx2:
-      image: nginx
-      volumes:
-        - ./src:/usr/share/nginx/html
-      environment:
-        - VIRTUAL_HOST_WEIGHT=2
-        - VIRTUAL_HOST=*/2
-      logging:
-        driver: syslog
-        options:
-          syslog-address: "udp://127.0.0.1:514"
-          tag: nginx2
-
-
     nginx1:
       image: nginx
       volumes:
@@ -38,6 +24,20 @@ services:
         options:
           syslog-address: "udp://127.0.0.1:514"
           tag: nginx1
+
+
+    nginx2:
+      image: nginx
+      volumes:
+        - ./src:/usr/share/nginx/html
+      environment:
+        - VIRTUAL_HOST_WEIGHT=2
+        - VIRTUAL_HOST=*/2*
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "udp://127.0.0.1:514"
+          tag: nginx2
 
 
     syslog:
